@@ -178,8 +178,7 @@ class Task(futures.Future):
             if exc is None:  # 即，exception，如果没有异常
                 # We use the `send` method directly, because coroutines
                 # don't have `__iter__` and `__next__` methods.
-                result = coro.send(None)  # 第一次调用的时候，激活该Task对象包裹的协程
-                print("in Task._step():", result)
+                result = coro.send(None)  # 驱动future对象
             else:
                 result = coro.throw(exc)
         except StopIteration as exc:
